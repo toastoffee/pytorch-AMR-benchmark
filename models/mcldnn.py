@@ -2,9 +2,10 @@ import torch
 import numpy as np
 from torch import nn
 import torch.nn.functional as F
-# from utils.signeltoimage import *
 import torch.fft
 import math
+
+
 class lstm(nn.Module):
 
     def __init__(self, input_size,output_size):
@@ -21,6 +22,7 @@ class lstm(nn.Module):
         out =out[:, -1, :]
 
         return out
+
 
 class mcldnn(nn.Module):
     def __init__(self, num_classes):
@@ -70,10 +72,10 @@ class mcldnn(nn.Module):
         y = self.fc2(y)
         y = self.fc3(y)
         return y
+
+
 if __name__ == '__main__':
     # print(mcldnn(10))
-    net1= mcldnn(10)
-    sgn=torch.randn((3,2,128))
-
-
+    net1 = mcldnn(10)
+    sgn = torch.randn((3,2,128))
     net1(sgn)

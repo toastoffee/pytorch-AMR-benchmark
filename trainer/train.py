@@ -7,8 +7,29 @@ from torch.optim.lr_scheduler import StepLR, MultiStepLR
 
 from tqdm import tqdm
 
-from train_utils import UpdatingAverage
+# from train_utils import UpdatingAverage
 from sklearn.metrics import accuracy_score
+
+
+class UpdatingAverage:
+    """
+    record the float value and return the average of records
+    """
+
+    def __init__(self):
+        self.steps: int   = 0
+        self.sum:   float = 0
+
+    def update(self, val):
+        self.sum   += val
+        self.steps += 1
+
+    def update(self, val, num):
+        self.sum   += val * float(num)
+        self.steps += num
+
+    def __call__(self, *args, **kwargs):
+        return self.sum / float(self.steps)
 
 
 # regular train function
@@ -51,7 +72,7 @@ def train_one_epoch(model:      nn.Module,
 
     # start training and use tqdm as the progress bar
     with tqdm(total=len(dataloader)) as t:
-        for i, (samples_batch, labels_batch) in enumerate(dataloader):
+        for i, (samples_batch, labels_batch, _) in enumerate(dataloader):
 
             # convert to torch variables
             samples_batch, labels_batch = samples_batch.to(device), labels_batch.to(device)
@@ -64,7 +85,7 @@ def train_one_epoch(model:      nn.Module,
             output_batch = model(samples_batch)
 
             # update weight by loss function
-            loss = loss_fn(output_batch, labels_batch)
+            loss = loss_fn(output_batch.float(), labels_batch.float())
             loss.backward()
             optimizer.step()
 
