@@ -3,10 +3,32 @@ from torch import nn
 from torch.utils.data import DataLoader
 from torch.autograd import Variable
 import torch.optim as optim
+from torch.optim.lr_scheduler import StepLR, MultiStepLR
+
 from tqdm import tqdm
 
 from train_utils import UpdatingAverage
 from sklearn.metrics import accuracy_score
+
+
+# regular train function
+def train(model:        nn.Module,
+          dataloader:   DataLoader,
+          optimizer:    optim.Optimizer,
+          loss_fn:      nn.Module,
+          device:       torch.device,
+          epochs:        int):
+
+    # learning rate schedulers
+    scheduler = MultiStepLR(optimizer, milestones=[60, 120, 160], gamma=0.2)
+
+    for epoch in range(epochs):
+
+        if epoch > 0:
+            scheduler.step()
+
+        # train the model
+        train_one_epoch(model, dataloader, optimizer, loss_fn, device)
 
 
 # regular train with only one epoch
@@ -58,3 +80,4 @@ def train_one_epoch(model:      nn.Module,
 
         print("- Train accuracy: {acc: .4f}, training loss: {loss: .4f}".format(acc=acc_avg(), loss=loss_avg()))
         return acc_avg, loss_avg
+
