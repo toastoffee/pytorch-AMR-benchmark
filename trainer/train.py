@@ -78,12 +78,15 @@ def train_one_epoch(model:      nn.Module,
             # compute the network output
             output_batch: torch.Tensor = model(samples_batch)
 
+            predicts_batch = torch.argmax(output_batch, dim=1)
+            true_index_batch = torch.argmax(labels_batch, dim=1)
+
             # set the optimizer grad
             optimizer.zero_grad()
 
             # update weight by loss function
             # labels_batch = labels_batch.to(dtype=torch.int64)
-            loss = loss_fn(output_batch.float(), labels_batch.float())
+            loss = loss_fn(output_batch.float(), true_index_batch.long())
 
             loss.backward()
             optimizer.step()
@@ -91,13 +94,10 @@ def train_one_epoch(model:      nn.Module,
             # update the average loss and accuracy
             loss_avg.update(loss.data)
 
-            predicts_batch = torch.argmax(output_batch, dim=1)
-            true_index_batch = torch.argmax(labels_batch, dim=1)
-
             accuracy_per_batch = accuracy_score(true_index_batch.cpu(), predicts_batch.cpu())
             acc_avg.update(accuracy_per_batch)
 
-            t.set_postfix(loss='{:05.3f}'.format(loss_avg()), lr='{:05.6f}'.format(optimizer.param_groups[0]['lr']))
+            t.set_postfix(loss='{:05.8f}'.format(loss_avg()), lr='{:05.6f}'.format(optimizer.param_groups[0]['lr']))
             t.update(1)
 
         print("- Train accuracy: {acc: .4f}, training loss: {loss: .4f}".format(acc=acc_avg(), loss=loss_avg()))

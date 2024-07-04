@@ -62,24 +62,24 @@ def train_model(model: nn.Module,
 
             del preds
 
-        model.eval()
-        # validate
-        for i, (samples, labels) in enumerate(valid_dataloader):
-
-            samples = samples.to(device, dtype=torch.float32)
-            labels = labels.to(device)
-
-            preds = model(samples.float())
-
-            for pred in preds:
-                pred_label = np.argmax(pred.cpu().detach().numpy(), axis=0)
-                validation_pred_labels.append(pred_label)
-
-            for label in labels:
-                validation_true_labels.append(label.cpu().detach().numpy())
-
-            del preds
-        model.train()
+        # model.eval()
+        # # validate
+        # for i, (samples, labels) in enumerate(valid_dataloader):
+        #
+        #     samples = samples.to(device, dtype=torch.float32)
+        #     labels = labels.to(device)
+        #
+        #     preds = model(samples.float())
+        #
+        #     for pred in preds:
+        #         pred_label = np.argmax(pred.cpu().detach().numpy(), axis=0)
+        #         validation_pred_labels.append(pred_label)
+        #
+        #     for label in labels:
+        #         validation_true_labels.append(label.cpu().detach().numpy())
+        #
+        #     del preds
+        # model.train()
 
         accuracy_on_train = accuracy_score(train_true_labels, train_pred_labels)
         accuracy_on_validation = accuracy_score(validation_true_labels, validation_pred_labels)
@@ -95,12 +95,12 @@ if __name__ == "__main__":
 
     model: nn.Module = mcldnn.mcldnn(num_classes=11)
     loss_fn = nn.CrossEntropyLoss()
-    optimizer: optim.Optimizer = optim.Adam(params=model.parameters(), lr=0e-3)
+    optimizer: optim.Optimizer = optim.Adam(params=model.parameters(), lr=1e-3)
 
     rml2016a_dataset = rml2016a.RML2016aDataset()
     train_dataloader = DataLoader(dataset=rml2016a_dataset, batch_size=64)
 
-    # train.train(model, train_dataloader, optimizer, loss_fn, device, 100)
+    train.train(model, train_dataloader, optimizer, loss_fn, device, 100)
 
     # Trainer_expr1: trainer.Trainer = trainer.Trainer(name="mcldnn",
     #                                                  model=model,
@@ -111,4 +111,4 @@ if __name__ == "__main__":
     #
     # Trainer_expr1.train(100, 1e-3, lambda lr, epochs: lr)
 
-    train_model(model, train_dataloader, None, 100, device)
+    # train_model(model, train_dataloader, None, 100, device)
