@@ -1,3 +1,4 @@
+import numpy as np
 import torch
 from torch import nn
 from torch.utils.data import DataLoader
@@ -93,7 +94,10 @@ def train_one_epoch(model:      nn.Module,
             loss_avg.update(loss.data, dataloader.batch_size)
 
             _, predicts_batch = output_batch.max(1)
-            accuracy_per_batch = accuracy_score(labels_batch, predicts_batch)
+
+            true_index_batch = torch.argmax(labels_batch, dim=1)
+
+            accuracy_per_batch = accuracy_score(true_index_batch, predicts_batch)
             acc_avg.update(accuracy_per_batch, dataloader.batch_size)
 
             t.set_postfix(loss='{:05.3f}'.format(loss_avg()), lr='{:05.6f}'.format(optimizer.param_groups[0]['lr']))
