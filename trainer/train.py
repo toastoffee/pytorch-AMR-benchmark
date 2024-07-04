@@ -97,7 +97,7 @@ def train_one_epoch(model:      nn.Module,
 
             true_index_batch = torch.argmax(labels_batch, dim=1)
 
-            accuracy_per_batch = accuracy_score(true_index_batch, predicts_batch)
+            accuracy_per_batch = accuracy_score(true_index_batch.cpu(), predicts_batch.cpu())
             acc_avg.update(accuracy_per_batch, dataloader.batch_size)
 
             t.set_postfix(loss='{:05.3f}'.format(loss_avg()), lr='{:05.6f}'.format(optimizer.param_groups[0]['lr']))
