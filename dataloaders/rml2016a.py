@@ -13,7 +13,7 @@ class RML2016aDataset(Dataset):
         sample_num = 220000
 
         dataset_dict = scio.loadmat(dataset_path)
-        self.data = torch.from_numpy(dataset_dict['data'])
+        self.data = torch.from_numpy(dataset_dict['data']).float()
 
         index_labels = dataset_dict['label']
 
@@ -21,9 +21,9 @@ class RML2016aDataset(Dataset):
         # one_hot_labels = np.squeeze(one_hot_labels)
         # self.labels = torch.from_numpy(one_hot_labels)
 
-        self.labels = torch.from_numpy(index_labels).squeeze().t()
+        self.labels = torch.from_numpy(index_labels).squeeze().t().long()
 
-        self.snr = torch.from_numpy(dataset_dict['snr']).t()
+        self.snr = torch.from_numpy(dataset_dict['snr']).t().float()
 
     def __len__(self):
         return len(self.data)
