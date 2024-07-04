@@ -25,10 +25,6 @@ class UpdatingAverage:
         self.sum   += val
         self.steps += 1
 
-    def update(self, val, num):
-        self.sum   += val * float(num)
-        self.steps += num
-
     def __call__(self, *args, **kwargs):
         return self.sum / float(self.steps)
 
@@ -40,6 +36,10 @@ def train(model:        nn.Module,
           loss_fn:      nn.Module,
           device:       torch.device,
           epochs:        int):
+
+    # device adaptation
+    model.to(device)
+    loss_fn.to(device)
 
     # learning rate schedulers
     scheduler = MultiStepLR(optimizer, milestones=[60, 120, 160], gamma=0.2)
@@ -67,10 +67,6 @@ def train_one_epoch(model:      nn.Module,
     loss_avg = UpdatingAverage()
     acc_avg = UpdatingAverage()
 
-    # device adaptation
-    model.to(device)
-    loss_fn.to(device)
-
     # start training and use tqdm as the progress bar
     with tqdm(total=len(dataloader)) as t:
         for i, (samples_batch, labels_batch, _) in enumerate(dataloader):
@@ -79,29 +75,30 @@ def train_one_epoch(model:      nn.Module,
             samples_batch, labels_batch = samples_batch.to(device), labels_batch.to(device)
             samples_batch, labels_batch = Variable(samples_batch), Variable(labels_batch)
 
+            # compute the network output
+            output_batch: torch.Tensor = model(samples_batch)
+
             # set the optimizer grad
             optimizer.zero_grad()
 
-            # compute the network output
-            output_batch = model(samples_batch)
-
             # update weight by loss function
+            # labels_batch = labels_batch.to(dtype=torch.int64)
             loss = loss_fn(output_batch.float(), labels_batch.float())
+
             loss.backward()
             optimizer.step()
 
             # update the average loss and accuracy
-            loss_avg.update(loss.data, dataloader.batch_size)
+            loss_avg.update(loss.data)
 
-            _, predicts_batch = output_batch.max(1)
-
+            predicts_batch = torch.argmax(output_batch, dim=1)
             true_index_batch = torch.argmax(labels_batch, dim=1)
 
             accuracy_per_batch = accuracy_score(true_index_batch.cpu(), predicts_batch.cpu())
-            acc_avg.update(accuracy_per_batch, dataloader.batch_size)
+            acc_avg.update(accuracy_per_batch)
 
             t.set_postfix(loss='{:05.3f}'.format(loss_avg()), lr='{:05.6f}'.format(optimizer.param_groups[0]['lr']))
-            t.update()
+            t.update(1)
 
         print("- Train accuracy: {acc: .4f}, training loss: {loss: .4f}".format(acc=acc_avg(), loss=loss_avg()))
         return acc_avg, loss_avg

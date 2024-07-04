@@ -12,9 +12,5 @@ class UpdatingAverage:
         self.sum   += val
         self.steps += 1
 
-    def update(self, val, num):
-        self.sum   += val * float(num)
-        self.steps += num
-
     def __call__(self, *args, **kwargs):
         return self.sum / float(self.steps)
