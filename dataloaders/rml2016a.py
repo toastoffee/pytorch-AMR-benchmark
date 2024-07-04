@@ -16,10 +16,13 @@ class RML2016aDataset(Dataset):
         self.data = torch.from_numpy(dataset_dict['data'])
 
         index_labels = dataset_dict['label']
-        one_hot_labels: np.ndarray = np.eye(class_num)[index_labels]
-        one_hot_labels = np.squeeze(one_hot_labels)
 
-        self.labels = torch.from_numpy(one_hot_labels)
+        # one_hot_labels: np.ndarray = np.eye(class_num)[index_labels]
+        # one_hot_labels = np.squeeze(one_hot_labels)
+        # self.labels = torch.from_numpy(one_hot_labels)
+
+        self.labels = torch.from_numpy(index_labels).squeeze().t()
+
         self.snr = torch.from_numpy(dataset_dict['snr']).t()
 
     def __len__(self):

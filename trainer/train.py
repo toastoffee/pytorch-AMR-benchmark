@@ -69,32 +69,25 @@ def train_one_epoch(model:      nn.Module,
 
     # start training and use tqdm as the progress bar
     with tqdm(total=len(dataloader)) as t:
-        for i, (samples_batch, labels_batch, _) in enumerate(dataloader):
+        for i, (samples, labels, snr) in enumerate(dataloader):
 
             # convert to torch variables
-            samples_batch, labels_batch = samples_batch.to(device), labels_batch.to(device)
-            samples_batch, labels_batch = Variable(samples_batch), Variable(labels_batch)
+            samples, labels = samples.to(device, dtype=torch.float32), labels.to(device)
 
-            # compute the network output
-            output_batch: torch.Tensor = model(samples_batch)
+            # forward
+            preds: torch.Tensor = model(samples)
+            loss = loss_fn(preds.float(), labels.long())
 
-            predicts_batch = torch.argmax(output_batch, dim=1)
-            true_index_batch = torch.argmax(labels_batch, dim=1)
-
-            # set the optimizer grad
+            # backward
             optimizer.zero_grad()
-
-            # update weight by loss function
-            # labels_batch = labels_batch.to(dtype=torch.int64)
-            loss = loss_fn(output_batch.float(), true_index_batch.long())
-
             loss.backward()
             optimizer.step()
 
             # update the average loss and accuracy
             loss_avg.update(loss.data)
 
-            accuracy_per_batch = accuracy_score(true_index_batch.cpu(), predicts_batch.cpu())
+            pred_labels = torch.argmax(preds, dim=1)
+            accuracy_per_batch = accuracy_score(pred_labels.cpu(), labels.cpu())
             acc_avg.update(accuracy_per_batch)
 
             t.set_postfix(loss='{:05.8f}'.format(loss_avg()), lr='{:05.6f}'.format(optimizer.param_groups[0]['lr']))
