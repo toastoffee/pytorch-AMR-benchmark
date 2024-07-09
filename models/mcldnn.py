@@ -73,9 +73,87 @@ class mcldnn(nn.Module):
         y = self.fc3(y)
         return y
 
+class mcldnn_encoder(nn.Module):
+    def __init__(self, num_classes):
+        super(mcldnn_encoder, self).__init__()
+        self.conv1=nn.Sequential(nn.Conv2d(1, 50, kernel_size=(1,7), stride=1,padding=(0,3) ,bias=True),
+                                )
+        self.conv2 = nn.Sequential(nn.Conv1d(1, 50, kernel_size=7, stride=1,padding=3, bias=True),
+                                )
+        self.conv3 = nn.Sequential(nn.Conv1d(1, 50, kernel_size=7, stride=1,padding=3, bias=True),
+                                   )
+        self.conv4 = nn.Sequential(nn.Conv2d(50, 50, kernel_size=(1,7), stride=1,padding=(0,3), bias=True),
+                                   )
+
+        self.conv5 = nn.Sequential(nn.Conv2d(100, 100, kernel_size=(2, 5), stride=1, bias=True),
+                               )
+
+        self.encoder_layer_t = lstm(100,128)
+
+        self.fc1 = nn.Sequential(nn.Linear(in_features=128, out_features=128),
+                                 nn.SELU(inplace=True),
+                                 )
+        self.fc2 = nn.Sequential(nn.Linear(in_features=128, out_features=128),
+                                 nn.SELU(inplace=True),
+                                )
+        self.fc3 = nn.Linear(in_features=128, out_features=num_classes)
+
+    def forward(self, y):
+        y = y.unsqueeze(1)
+        I=y[:,:,0,:]
+        Q = y[:,:, 1, :]
+        y=self.conv1(y)
+        I=self.conv2(I)
+        I = I.unsqueeze(2)
+        Q = self.conv3(Q)
+        Q = Q.unsqueeze(2)
+        IQ = torch.cat((I, Q), 2)
+
+        IQ=self.conv4(IQ)
+        y=torch.cat((IQ, y), 1)
+        y=self.conv5(y)
+        y = y.squeeze(2)
+        y = y.transpose(1, 2)
+        y = self.encoder_layer_t(y)
+        # y = y.permute(1, 2, 0)
+        y = y.view(y.size(0), -1)
+        return y
+
+class mcldnn_classifier(nn.Module):
+    def __init__(self, num_classes):
+        super(mcldnn_classifier, self).__init__()
+        self.conv1=nn.Sequential(nn.Conv2d(1, 50, kernel_size=(1,7), stride=1,padding=(0,3) ,bias=True),
+                                )
+        self.conv2 = nn.Sequential(nn.Conv1d(1, 50, kernel_size=7, stride=1,padding=3, bias=True),
+                                )
+        self.conv3 = nn.Sequential(nn.Conv1d(1, 50, kernel_size=7, stride=1,padding=3, bias=True),
+                                   )
+        self.conv4 = nn.Sequential(nn.Conv2d(50, 50, kernel_size=(1,7), stride=1,padding=(0,3), bias=True),
+                                   )
+
+        self.conv5 = nn.Sequential(nn.Conv2d(100, 100, kernel_size=(2, 5), stride=1, bias=True),
+                               )
+
+        self.encoder_layer_t = lstm(100,128)
+
+        self.fc1 = nn.Sequential(nn.Linear(in_features=128, out_features=128),
+                                 nn.SELU(inplace=True),
+                                 )
+        self.fc2 = nn.Sequential(nn.Linear(in_features=128, out_features=128),
+                                 nn.SELU(inplace=True),
+                                )
+        self.fc3 = nn.Linear(in_features=128, out_features=num_classes)
+
+    def forward(self, y):
+
+        y = self.fc1(y)
+        y = self.fc2(y)
+        y = self.fc3(y)
+        return y
 
 if __name__ == '__main__':
     # print(mcldnn(10))
-    net1 = mcldnn(10)
+    net1 = mcldnn_encoder(10)
     sgn = torch.randn((3,2,128))
     net1(sgn)
+    print(sgn.shape)
