@@ -11,7 +11,10 @@ from tqdm import tqdm
 
 # from train_utils import UpdatingAverage
 from sklearn.metrics import accuracy_score
-from train_utils import log_info
+
+def log_info(content: str):
+    with open("log.txt", "a") as file:
+        file.write(content + '\n')
 
 
 def loss_kd(outputs:            torch.Tensor,
@@ -119,6 +122,8 @@ def train_and_evaluate(model:        nn.Module,
                        device:       torch.device,
                        epochs:        int,
                        model_name:   str):
+
+    log_info("start training: " + model_name)
     # device adaptation
     model.to(device)
     loss_fn.to(device)

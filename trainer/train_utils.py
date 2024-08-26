@@ -17,5 +17,10 @@ class UpdatingAverage:
 
 
 def log_info(content: str):
-    with open("log.txt", "w") as file:
-        file.write(content)
+    with open("log.txt", "a") as file:
+        file.write(content + '\n')
+
+
+if __name__ == '__main__':
+    log_info("test")
+    log_info("a")

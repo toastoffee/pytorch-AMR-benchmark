@@ -63,10 +63,10 @@ if __name__ == "__main__":
     loss_fn = nn.CrossEntropyLoss()
 
     resnet18: nn.Module = resnet1d.resnet18(num_class=11)
-    resnet34: nn.Module = resnet1d.resnet18(num_class=11)
-    resnet50: nn.Module = resnet1d.resnet18(num_class=11)
-    resnet101: nn.Module = resnet1d.resnet18(num_class=11)
-    resnet152: nn.Module = resnet1d.resnet18(num_class=11)
+    resnet34: nn.Module = resnet1d.resnet34(num_class=11)
+    resnet50: nn.Module = resnet1d.resnet50(num_class=11)
+    resnet101: nn.Module = resnet1d.resnet101(num_class=11)
+    resnet152: nn.Module = resnet1d.resnet152(num_class=11)
 
     optimizer18: optim.Optimizer = optim.Adam(params=resnet18.parameters(), lr=1e-3, weight_decay=0.005)
     optimizer34: optim.Optimizer = optim.Adam(params=resnet34.parameters(), lr=1e-3, weight_decay=0.005)
@@ -101,4 +101,3 @@ if __name__ == "__main__":
         resnet152, train_dataloader, valid_dataloader,
         optimizer152, loss_fn, device, 200, "resnet152-baseline")
 
-    
