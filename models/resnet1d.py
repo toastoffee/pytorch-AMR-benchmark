@@ -177,25 +177,30 @@ def resnet18(num_class):
     """
     return ResNet1d(numclass=num_class, block=BasicBlock, layers=[2, 2, 2, 2])
 
+
 def resnet34(num_class):
     """ return a ResNet 34 object
     """
     return ResNet1d(numclass=num_class, block=Bottleneck, layers=[3, 4, 6, 3])
+
 
 def resnet50(num_class):
     """ return a ResNet 50 object
     """
     return ResNet1d(numclass=num_class, block=BasicBlock, layers=[3, 4, 6, 3])
 
+
 def resnet101(num_class):
     """ return a ResNet 101 object
     """
     return ResNet1d(numclass=num_class, block=Bottleneck, layers=[3, 4, 23, 3])
 
+
 def resnet152(num_class):
     """ return a ResNet 152 object
     """
     return ResNet1d(numclass=num_class, block=Bottleneck, layers=[3, 8, 36, 3])
+
 
 if __name__ == '__main__':
     encoder = resnet152(num_class=11)

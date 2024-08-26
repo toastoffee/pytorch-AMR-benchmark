@@ -11,6 +11,7 @@ from tqdm import tqdm
 
 # from train_utils import UpdatingAverage
 from sklearn.metrics import accuracy_score
+from train_utils import log_info
 
 
 def loss_kd(outputs:            torch.Tensor,
@@ -108,6 +109,7 @@ class DIST_M(nn.Module):
         intra_loss = normalized_cross_entropy(y_s.transpose(0, 1), y_t.transpose(0, 1))
         loss = self.beta * inter_loss + self.gamma * intra_loss
         return loss
+
 
 def train_and_evaluate(model:        nn.Module,
                        train_dataloader:   DataLoader,
@@ -230,8 +232,9 @@ def evaluate(model:        nn.Module,
         accuracy_per_batch = accuracy_score(pred_labels.cpu(), labels.cpu())
         acc_avg.update(accuracy_per_batch)
 
+    metric_desc = desc + "- Eval metrics, acc: {acc: .4f}, loss: {loss: .4f}".format(acc=acc_avg(), loss=loss_avg())
     print(desc + "- Eval metrics, acc: {acc: .4f}, loss: {loss: .4f}".format(acc=acc_avg(), loss=loss_avg()))
-
+    log_info(metric_desc)
 
 def train_kd(model:             nn.Module,
              teacher_model:     nn.Module,

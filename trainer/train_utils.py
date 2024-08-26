@@ -14,3 +14,8 @@ class UpdatingAverage:
 
     def __call__(self, *args, **kwargs):
         return self.sum / float(self.steps)
+
+
+def log_info(content: str):
+    with open("log.txt", "w") as file:
+        file.write(content)
