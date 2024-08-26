@@ -62,6 +62,14 @@ def intra_class_relation(y_s, y_t):
     return inter_class_relation(y_s.transpose(0, 1), y_t.transpose(0, 1))
 
 
+def normalized_cross_entropy(y_s : torch.Tensor, y_t: torch.Tensor):
+    y_s = torch.nn.functional.normalize(y_s, dim=1, p=2);
+    y_t = torch.nn.functional.normalize(y_t, dim=1, p=2);
+    return F.kl_div(y_s, y_t)
+
+
+
+
 class DIST(nn.Module):
     def __init__(self, beta=1., gamma=1.):
         super(DIST, self).__init__()
@@ -81,6 +89,25 @@ class DIST(nn.Module):
         loss = self.beta * inter_loss + self.gamma * intra_loss
         return loss
 
+
+class DIST_M(nn.Module):
+    def __init__(self, beta=1., gamma=1.):
+        super(DIST_M, self).__init__()
+        self.beta = beta
+        self.gamma = gamma
+
+    def forward(self, y_s, y_t):
+        assert y_s.ndim in (2, 4)
+        if y_s.ndim == 4:
+            num_classes = y_s.shape[1]
+            y_s = y_s.transpose(1, 3).reshape(-1, num_classes)
+            y_t = y_t.transpose(1, 3).reshape(-1, num_classes)
+        y_s = y_s.softmax(dim=1)
+        y_t = y_t.softmax(dim=1)
+        inter_loss = normalized_cross_entropy(y_s, y_t)
+        intra_loss = normalized_cross_entropy(y_s.transpose(0, 1), y_t.transpose(0, 1))
+        loss = self.beta * inter_loss + self.gamma * intra_loss
+        return loss
 
 def train_and_evaluate(model:        nn.Module,
                        train_dataloader:   DataLoader,
@@ -322,6 +349,60 @@ def train_kd_one_epoch(model:         nn.Module,
     print("- Train metrics, acc: {acc: .4f}, loss: {loss: .4f}".format(acc=acc_avg(), loss=loss_avg()))
     return acc_avg, loss_avg
 
+# modified version
+# def train_dist_one_epoch(model:         nn.Module,
+#                        teacher_model: nn.Module,
+#                        dataloader:    DataLoader,
+#                        optimizer:     optim.Optimizer,
+#                        device:        torch.device):
+#
+#     # set the model to training mode
+#     model.train()
+#     teacher_model.eval()
+#
+#     # metrics
+#     loss_avg = UpdatingAverage()
+#     acc_avg = UpdatingAverage()
+#
+#     # Use tqdm for progress bar
+#     with tqdm(total=len(dataloader)) as t:
+#         for i, (samples, labels, snr) in enumerate(dataloader):
+#
+#             samples, labels = samples.to(device), labels.to(device)
+#             # convert to torch Variables
+#             samples, labels = Variable(samples), Variable(labels)
+#
+#             # compute model output, fetch teacher output, and compute KD loss
+#             preds:  torch.Tensor = model(samples).to(device)
+#
+#             # get one batch output from teacher model
+#             teacher_preds = teacher_model(samples).to(device)
+#             teacher_preds = Variable(teacher_preds, requires_grad=False)
+#
+#             loss_ce = F.cross_entropy(preds, labels)
+#             dist = DIST_M()
+#             dist_loss = dist.forward(preds, teacher_preds)
+#
+#             loss = 0.33 * loss_ce + 0.66 * dist_loss
+#
+#             # clear previous gradients, compute gradients of all variables wrt loss
+#             optimizer.zero_grad()
+#             loss.backward()
+#             optimizer.step()
+#
+#             pred_labels = torch.argmax(preds, dim=1)
+#             accuracy_per_batch = accuracy_score(pred_labels.cpu(), labels.cpu())
+#             acc_avg.update(accuracy_per_batch)
+#
+#             # update the average loss
+#             loss_avg.update(loss.data)
+#
+#             t.set_postfix(loss='{:05.8f}'.format(loss_avg()), lr='{:05.8f}'.format(optimizer.param_groups[0]['lr']))
+#             t.update()
+#
+#     print("- Train metrics, acc: {acc: .4f}, loss: {loss: .4f}".format(acc=acc_avg(), loss=loss_avg()))
+#     return acc_avg, loss_avg
+
 def train_dist_one_epoch(model:         nn.Module,
                        teacher_model: nn.Module,
                        dataloader:    DataLoader,
@@ -355,7 +436,7 @@ def train_dist_one_epoch(model:         nn.Module,
             dist = DIST()
             dist_loss = dist.forward(preds, teacher_preds)
 
-            loss = 0.33 * loss_ce + 0.66 * dist_loss
+            loss = 0.5 * loss_ce + 0.5 * dist_loss
 
             # clear previous gradients, compute gradients of all variables wrt loss
             optimizer.zero_grad()
