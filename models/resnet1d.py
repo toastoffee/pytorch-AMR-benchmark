@@ -171,6 +171,145 @@ class ResNet1d(nn.Module):
 
         return nn.Sequential(*block_list)
 
+class ResNet1d_encoder(nn.Module):
+    def __init__(self, numclass, block=Bottleneck, layers=[3, 4, 6, 3]):
+        # inplane=当前的fm的通道数
+        self.inplane = 64
+        super(ResNet1d_encoder, self).__init__()
+
+        # 参数
+        self.block = block
+        self.layers = layers
+
+        # stem的网络层
+        self.conv1 = nn.Conv1d(2, self.inplane, kernel_size=7, stride=2, padding=3, bias=False)
+        self.bn1 = nn.BatchNorm1d(self.inplane)
+        self.relu = nn.ReLU()
+        self.maxpool = nn.MaxPool1d(kernel_size=3, stride=2, padding=1)
+
+        # 64,128,256,512指的是扩大4倍之前的维度，即Identity Block中间的维度
+        self.stage1 = self.make_layer(self.block, 64, layers[0], stride=1)
+        self.stage2 = self.make_layer(self.block, 128, layers[1], stride=2)
+        self.stage3 = self.make_layer(self.block, 256, layers[2], stride=2)
+        self.stage4 = self.make_layer(self.block, 512, layers[3], stride=2)
+        self.gap = nn.AdaptiveAvgPool1d(1)
+        self.classifier = nn.Sequential(
+            nn.Linear(2048, numclass)
+
+        )
+
+    def forward(self, y):
+        # stem部分：conv+bn+maxpool
+        out = self.conv1(y)
+        out = self.bn1(out)
+        out = self.relu(out)
+        out = self.maxpool(out)
+
+        # block部分
+        out = self.stage1(out)
+        out = self.stage2(out)
+        out = self.stage3(out)
+        out = self.stage4(out)
+        out = self.gap(out)
+        out = out.view(out.size(0), -1)
+
+        return out
+
+    def make_layer(self, block, plane, block_num, stride=1):
+        '''
+        :param block: block模板
+        :param plane: 每个模块中间运算的维度，一般等于输出维度/4
+        :param block_num: 重复次数
+        :param stride: 步长
+        :return:
+        '''
+        block_list = []
+        # 先计算要不要加downsample
+        downsample = None
+        if (stride != 1 or self.inplane != plane * block.extention):
+            downsample = nn.Sequential(
+                nn.Conv1d(self.inplane, plane * block.extention, stride=stride, kernel_size=1, bias=False),
+                nn.BatchNorm1d(plane * block.extention)
+            )
+
+        # Conv Block输入和输出的维度（通道数和size）是不一样的，所以不能连续串联，他的作用是改变网络的维度
+        # Identity Block 输入维度和输出（通道数和size）相同，可以直接串联，用于加深网络
+        # Conv_block
+        conv_block = block(self.inplane, plane, stride=stride, downsample=downsample)
+        block_list.append(conv_block)
+        self.inplane = plane * block.extention
+
+        # Identity Block
+        for i in range(1, block_num):
+            block_list.append(block(self.inplane, plane, stride=1))
+
+        return nn.Sequential(*block_list)
+
+class ResNet1d_decoder(nn.Module):
+    def __init__(self, numclass, block=Bottleneck, layers=[3, 4, 6, 3]):
+        # inplane=当前的fm的通道数
+        self.inplane = 64
+        super(ResNet1d_decoder, self).__init__()
+
+        # 参数
+        self.block = block
+        self.layers = layers
+
+        # stem的网络层
+        self.conv1 = nn.Conv1d(2, self.inplane, kernel_size=7, stride=2, padding=3, bias=False)
+        self.bn1 = nn.BatchNorm1d(self.inplane)
+        self.relu = nn.ReLU()
+        self.maxpool = nn.MaxPool1d(kernel_size=3, stride=2, padding=1)
+
+        # 64,128,256,512指的是扩大4倍之前的维度，即Identity Block中间的维度
+        self.stage1 = self.make_layer(self.block, 64, layers[0], stride=1)
+        self.stage2 = self.make_layer(self.block, 128, layers[1], stride=2)
+        self.stage3 = self.make_layer(self.block, 256, layers[2], stride=2)
+        self.stage4 = self.make_layer(self.block, 512, layers[3], stride=2)
+        self.gap = nn.AdaptiveAvgPool1d(1)
+        self.classifier = nn.Sequential(
+            nn.Linear(2048, numclass)
+
+        )
+
+    def forward(self, y):
+        # stem部分：conv+bn+maxpool
+
+        out = self.classifier(y)
+
+        return out
+
+    def make_layer(self, block, plane, block_num, stride=1):
+        '''
+        :param block: block模板
+        :param plane: 每个模块中间运算的维度，一般等于输出维度/4
+        :param block_num: 重复次数
+        :param stride: 步长
+        :return:
+        '''
+        block_list = []
+        # 先计算要不要加downsample
+        downsample = None
+        if (stride != 1 or self.inplane != plane * block.extention):
+            downsample = nn.Sequential(
+                nn.Conv1d(self.inplane, plane * block.extention, stride=stride, kernel_size=1, bias=False),
+                nn.BatchNorm1d(plane * block.extention)
+            )
+
+        # Conv Block输入和输出的维度（通道数和size）是不一样的，所以不能连续串联，他的作用是改变网络的维度
+        # Identity Block 输入维度和输出（通道数和size）相同，可以直接串联，用于加深网络
+        # Conv_block
+        conv_block = block(self.inplane, plane, stride=stride, downsample=downsample)
+        block_list.append(conv_block)
+        self.inplane = plane * block.extention
+
+        # Identity Block
+        for i in range(1, block_num):
+            block_list.append(block(self.inplane, plane, stride=1))
+
+        return nn.Sequential(*block_list)
+
+
 def resnet2(num_class):
     """ return a ResNet 10 object
     """
@@ -191,29 +330,66 @@ def resnet18(num_class):
     """
     return ResNet1d(numclass=num_class, block=BasicBlock, layers=[2, 2, 2, 2])
 
+def resnet18_encoder(num_class):
+    """ return a ResNet 18 object
+    """
+    return ResNet1d_encoder(numclass=num_class, block=BasicBlock, layers=[2, 2, 2, 2])
+def resnet18_decoder(num_class):
+    """ return a ResNet 18 object
+    """
+    return ResNet1d_decoder(numclass=num_class, block=BasicBlock, layers=[2, 2, 2, 2])
 
 def resnet34(num_class):
     """ return a ResNet 34 object
     """
     return ResNet1d(numclass=num_class, block=Bottleneck, layers=[3, 4, 6, 3])
-
+def resnet34_encoder(num_class):
+    """ return a ResNet 18 object
+    """
+    return ResNet1d_encoder(numclass=num_class, block=Bottleneck, layers=[3, 4, 6, 3])
+def resnet34_decoder(num_class):
+    """ return a ResNet 18 object
+    """
+    return ResNet1d_decoder(numclass=num_class, block=Bottleneck, layers=[3, 4, 6, 3])
 
 def resnet50(num_class):
     """ return a ResNet 50 object
     """
     return ResNet1d(numclass=num_class, block=BasicBlock, layers=[3, 4, 6, 3])
-
+def resnet50_encoder(num_class):
+    """ return a ResNet 18 object
+    """
+    return ResNet1d_encoder(numclass=num_class, block=BasicBlock, layers=[3, 4, 6, 3])
+def resnet50_decoder(num_class):
+    """ return a ResNet 18 object
+    """
+    return ResNet1d_decoder(numclass=num_class, block=BasicBlock, layers=[3, 4, 6, 3])
 
 def resnet101(num_class):
     """ return a ResNet 101 object
     """
     return ResNet1d(numclass=num_class, block=Bottleneck, layers=[3, 4, 23, 3])
-
+def resnet101_encoder(num_class):
+    """ return a ResNet 18 object
+    """
+    return ResNet1d_encoder(numclass=num_class, block=Bottleneck, layers=[3, 4, 23, 3])
+def resnet101_decoder(num_class):
+    """ return a ResNet 18 object
+    """
+    return ResNet1d_decoder(numclass=num_class, block=Bottleneck, layers=[3, 4, 23, 3])
 
 def resnet152(num_class):
     """ return a ResNet 152 object
     """
     return ResNet1d(numclass=num_class, block=Bottleneck, layers=[3, 8, 36, 3])
+def resnet152_encoder(num_class):
+    """ return a ResNet 18 object
+    """
+    return ResNet1d_encoder(numclass=num_class, block=Bottleneck, layers=[3, 8, 36, 3])
+def resnet152_decoder(num_class):
+    """ return a ResNet 18 object
+    """
+    return ResNet1d_decoder(numclass=num_class, block=Bottleneck, layers=[3, 8, 36, 3])
 
 
 if __name__ == '__main__':
