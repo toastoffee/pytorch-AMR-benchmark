@@ -28,7 +28,7 @@ def loss_kd(outputs:            torch.Tensor,
     """
 
     loss_CE = F.cross_entropy(outputs, labels)
-    D_KL = nn.KLDivLoss()(F.log_softmax(outputs/T, dim=1), F.softmax(teacher_outputs/T, dim=1)) * (T * T)
+    D_KL = nn.KLDivLoss(reduction='batchmean')(F.log_softmax(outputs/T, dim=1), F.softmax(teacher_outputs/T, dim=1)) * (T * T)
     KD_loss =  (1. - alpha)*loss_CE + alpha*D_KL
 
     return KD_loss
@@ -291,9 +291,11 @@ def train_and_evaluate_kd(model:             nn.Module,
     # set model to training mode
     model.train()
     teacher_model.eval()
+    loss_fn = nn.CrossEntropyLoss()
 
     model.to(device)
     teacher_model.to(device)
+    loss_fn.to(device)
 
     scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=25, gamma=0.1, last_epoch=-1)
     for epoch in range(epochs):
@@ -304,7 +306,6 @@ def train_and_evaluate_kd(model:             nn.Module,
         # train the model
         train_kd_one_epoch(model, teacher_model, train_dataloader, optimizer, device, alpha, temperature)
 
-        loss_fn = nn.CrossEntropyLoss()
         evaluate(model, val_dataloader, loss_fn, device)
 
     torch.save(model.state_dict(),  model_name + '.pth')
