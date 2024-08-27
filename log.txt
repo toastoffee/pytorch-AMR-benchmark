@@ -1,0 +1,2 @@
+start training: resnet10-baseline
+start training: resnet4-baseline

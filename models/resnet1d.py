@@ -171,6 +171,16 @@ class ResNet1d(nn.Module):
 
         return nn.Sequential(*block_list)
 
+def resnet2(num_class):
+    """ return a ResNet 10 object
+    """
+    return ResNet1d(numclass=num_class, block=BasicBlock, layers=[0, 0, 0, 0])
+
+def resnet4(num_class):
+    """ return a ResNet 10 object
+    """
+    return ResNet1d(numclass=num_class, block=BasicBlock, layers=[1, 0, 0, 0])
+
 def resnet10(num_class):
     """ return a ResNet 10 object
     """
@@ -207,7 +217,7 @@ def resnet152(num_class):
 
 
 if __name__ == '__main__':
-    encoder = resnet152(num_class=11)
+    encoder = resnet2(num_class=11)
 
     sgn = torch.randn((64, 2, 128))
 

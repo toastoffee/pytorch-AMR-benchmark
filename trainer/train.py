@@ -10,7 +10,8 @@ import torch.nn.functional as F
 from tqdm import tqdm
 
 # from train_utils import UpdatingAverage
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, top_k_accuracy_score
+
 
 def log_info(content: str):
     with open("log.txt", "a") as file:
@@ -224,6 +225,7 @@ def evaluate(model:        nn.Module,
 
     loss_avg = UpdatingAverage()
     acc_avg = UpdatingAverage()
+    acc5_avg = UpdatingAverage()
 
     for i, (samples, labels, snr) in enumerate(dataloader):
         samples, labels = samples.to(device, dtype=torch.float32), labels.to(device)
@@ -235,9 +237,11 @@ def evaluate(model:        nn.Module,
 
         pred_labels = torch.argmax(preds, dim=1)
         accuracy_per_batch = accuracy_score(pred_labels.cpu(), labels.cpu())
+        accuracy_top_5 = top_k_accuracy_score(y_true=labels.cpu().detach().numpy(), y_score=preds.cpu().detach().numpy(), k=5)
         acc_avg.update(accuracy_per_batch)
+        acc5_avg.update(accuracy_top_5)
 
-    metric_desc = desc + "- Eval metrics, acc: {acc: .4f}, loss: {loss: .4f}".format(acc=acc_avg(), loss=loss_avg())
+    metric_desc = desc + "- Eval metrics, acc: {acc: .4f},top-5:{top5: .4f} loss: {loss: .4f}".format(acc=acc_avg(), top5=acc5_avg(), loss=loss_avg())
     print(desc + "- Eval metrics, acc: {acc: .4f}, loss: {loss: .4f}".format(acc=acc_avg(), loss=loss_avg()))
     log_info(metric_desc)
 

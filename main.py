@@ -62,6 +62,8 @@ if __name__ == "__main__":
 
     loss_fn = nn.CrossEntropyLoss()
 
+    resnet2: nn.Module = resnet1d.resnet2(num_class=11)
+    resnet4: nn.Module = resnet1d.resnet4(num_class=11)
     resnet10: nn.Module = resnet1d.resnet10(num_class=11)
     resnet18: nn.Module = resnet1d.resnet18(num_class=11)
     resnet34: nn.Module = resnet1d.resnet34(num_class=11)
@@ -69,6 +71,8 @@ if __name__ == "__main__":
     resnet101: nn.Module = resnet1d.resnet101(num_class=11)
     resnet152: nn.Module = resnet1d.resnet152(num_class=11)
 
+    optimizer2: optim.Optimizer = optim.Adam(params=resnet2.parameters(), lr=1e-3, weight_decay=0.005)
+    optimizer4: optim.Optimizer = optim.Adam(params=resnet4.parameters(), lr=1e-3, weight_decay=0.005)
     optimizer10: optim.Optimizer = optim.Adam(params=resnet10.parameters(), lr=1e-3, weight_decay=0.005)
     optimizer18: optim.Optimizer = optim.Adam(params=resnet18.parameters(), lr=1e-3, weight_decay=0.005)
     optimizer34: optim.Optimizer = optim.Adam(params=resnet34.parameters(), lr=1e-3, weight_decay=0.005)
@@ -84,9 +88,17 @@ if __name__ == "__main__":
 
     # 1. train 6-resnets baseline model
     train.train_and_evaluate(
-        resnet10, train_dataloader, valid_dataloader,
-        optimizer10, loss_fn, device, 200, "resnet10-baseline")
+        resnet2, train_dataloader, valid_dataloader,
+        optimizer2, loss_fn, device, 50, "resnet2-baseline")
 
+    # train.train_and_evaluate(
+    #     resnet4, train_dataloader, valid_dataloader,
+    #     optimizer4, loss_fn, device, 200, "resnet4-baseline")
+    #
+    # train.train_and_evaluate(
+    #     resnet10, train_dataloader, valid_dataloader,
+    #     optimizer10, loss_fn, device, 200, "resnet10-baseline")
+    #
     # train.train_and_evaluate(
     #     resnet18, train_dataloader, valid_dataloader,
     #     optimizer18, loss_fn, device, 200, "resnet18-baseline")
@@ -106,4 +118,8 @@ if __name__ == "__main__":
     # train.train_and_evaluate(
     #     resnet152, train_dataloader, valid_dataloader,
     #     optimizer152, loss_fn, device, 200, "resnet152-baseline")
+
+    # 2. traditional-KD
+
+    # 3. dist-KD
 
