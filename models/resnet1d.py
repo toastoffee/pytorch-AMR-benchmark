@@ -171,6 +171,10 @@ class ResNet1d(nn.Module):
 
         return nn.Sequential(*block_list)
 
+def resnet10(num_class):
+    """ return a ResNet 10 object
+    """
+    return ResNet1d(numclass=num_class, block=BasicBlock, layers=[1, 1, 1, 1])
 
 def resnet18(num_class):
     """ return a ResNet 18 object

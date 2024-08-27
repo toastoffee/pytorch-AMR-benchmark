@@ -62,12 +62,14 @@ if __name__ == "__main__":
 
     loss_fn = nn.CrossEntropyLoss()
 
+    resnet10: nn.Module = resnet1d.resnet10(num_class=11)
     resnet18: nn.Module = resnet1d.resnet18(num_class=11)
     resnet34: nn.Module = resnet1d.resnet34(num_class=11)
     resnet50: nn.Module = resnet1d.resnet50(num_class=11)
     resnet101: nn.Module = resnet1d.resnet101(num_class=11)
     resnet152: nn.Module = resnet1d.resnet152(num_class=11)
 
+    optimizer10: optim.Optimizer = optim.Adam(params=resnet10.parameters(), lr=1e-3, weight_decay=0.005)
     optimizer18: optim.Optimizer = optim.Adam(params=resnet18.parameters(), lr=1e-3, weight_decay=0.005)
     optimizer34: optim.Optimizer = optim.Adam(params=resnet34.parameters(), lr=1e-3, weight_decay=0.005)
     optimizer50: optim.Optimizer = optim.Adam(params=resnet50.parameters(), lr=1e-3, weight_decay=0.005)
@@ -80,24 +82,28 @@ if __name__ == "__main__":
     train_dataloader = DataLoader(dataset=train_subset, batch_size=512, shuffle=True)
     valid_dataloader = DataLoader(dataset=valid_subset, batch_size=512, shuffle=False)
 
-    # 1. train 5-resnets baseline model
+    # 1. train 6-resnets baseline model
     train.train_and_evaluate(
-        resnet18, train_dataloader, valid_dataloader,
-        optimizer18, loss_fn, device, 200, "resnet18-baseline")
+        resnet10, train_dataloader, valid_dataloader,
+        optimizer10, loss_fn, device, 200, "resnet10-baseline")
 
-    train.train_and_evaluate(
-        resnet34, train_dataloader, valid_dataloader,
-        optimizer34, loss_fn, device, 200, "resnet34-baseline")
-
-    train.train_and_evaluate(
-        resnet50, train_dataloader, valid_dataloader,
-        optimizer50, loss_fn, device, 200, "resnet50-baseline")
-
-    train.train_and_evaluate(
-        resnet101, train_dataloader, valid_dataloader,
-        optimizer101, loss_fn, device, 200, "resnet101-baseline")
-
-    train.train_and_evaluate(
-        resnet152, train_dataloader, valid_dataloader,
-        optimizer152, loss_fn, device, 200, "resnet152-baseline")
+    # train.train_and_evaluate(
+    #     resnet18, train_dataloader, valid_dataloader,
+    #     optimizer18, loss_fn, device, 200, "resnet18-baseline")
+    #
+    # train.train_and_evaluate(
+    #     resnet34, train_dataloader, valid_dataloader,
+    #     optimizer34, loss_fn, device, 200, "resnet34-baseline")
+    #
+    # train.train_and_evaluate(
+    #     resnet50, train_dataloader, valid_dataloader,
+    #     optimizer50, loss_fn, device, 200, "resnet50-baseline")
+    #
+    # train.train_and_evaluate(
+    #     resnet101, train_dataloader, valid_dataloader,
+    #     optimizer101, loss_fn, device, 200, "resnet101-baseline")
+    #
+    # train.train_and_evaluate(
+    #     resnet152, train_dataloader, valid_dataloader,
+    #     optimizer152, loss_fn, device, 200, "resnet152-baseline")
 
