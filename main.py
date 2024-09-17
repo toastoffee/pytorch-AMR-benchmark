@@ -1,6 +1,6 @@
 from torch import nn, optim
 
-from models import mcldnn, cnn2, petcgdnn
+from models import mcldnn, cnn2, petcgdnn, fits
 
 from trainer import train, loss_functions
 from dataloaders import rml2016a
@@ -57,7 +57,7 @@ if __name__ == "__main__":
     #                                         train_dataloader, valid_dataloader, 200,  device,
     #                                         "cnn2_mcldnn_128_simKd")
 
-    loss_fn = nn.CrossEntropyLoss()
+    # loss_fn = nn.CrossEntropyLoss()
 
     # resnet2: nn.Module = resnet1d.resnet2(num_class=11)
     # resnet4: nn.Module = resnet1d.resnet4(num_class=11)
@@ -78,11 +78,11 @@ if __name__ == "__main__":
     # optimizer152: optim.Optimizer = optim.Adam(params=resnet152.parameters(), lr=1e-3, weight_decay=0.005)
 
     # initial dataset
-    rml2016a_dataset = rml2016a.RML2016aDataset()
-    lengths = [int(0.6 * len(rml2016a_dataset)), int(0.4 * len(rml2016a_dataset))]
-    train_subset, valid_subset = torch.utils.data.random_split(rml2016a_dataset, lengths)
-    train_dataloader = DataLoader(dataset=train_subset, batch_size=512, shuffle=True)
-    valid_dataloader = DataLoader(dataset=valid_subset, batch_size=512, shuffle=False)
+    # rml2016a_dataset = rml2016a.RML2016aDataset()
+    # lengths = [int(0.6 * len(rml2016a_dataset)), int(0.4 * len(rml2016a_dataset))]
+    # train_subset, valid_subset = torch.utils.data.random_split(rml2016a_dataset, lengths)
+    # train_dataloader = DataLoader(dataset=train_subset, batch_size=512, shuffle=True)
+    # valid_dataloader = DataLoader(dataset=valid_subset, batch_size=512, shuffle=False)
 
     # 1. train 6-resnets baseline model
     # train.train_and_evaluate(
@@ -190,35 +190,52 @@ if __name__ == "__main__":
     # train.train_and_evaluate_sim_kd_encoder(stu_encoder, tea_encoder, tea_classifier, optimizer,
     #                                         train_dataloader, valid_dataloader, 100, device,
     #                                         "res18-res34-simKd")
-    stu_encoder: nn.Module = resnet1d.resnet18_encoder(num_class=11)
-    tea_encoder: nn.Module = resnet1d.resnet50_encoder(num_class=11)
-    tea_classifier: nn.Module = resnet1d.resnet50_decoder(num_class=11)
-    weight_path: str = "./weights/resnet50-baseline.pth"
-    tea_encoder.load_state_dict(torch.load(weight_path, map_location=torch.device(device)))
-    tea_classifier.load_state_dict(torch.load(weight_path, map_location=torch.device(device)))
-    optimizer: optim.Optimizer = optim.Adam(params=stu_encoder.parameters(), lr=1e-3)
-    train.train_and_evaluate_sim_kd_encoder(stu_encoder, tea_encoder, tea_classifier, optimizer,
-                                            train_dataloader, valid_dataloader, 50, device,
-                                            "res18-res50-simKd")
+    # stu_encoder: nn.Module = resnet1d.resnet18_encoder(num_class=11)
+    # tea_encoder: nn.Module = resnet1d.resnet50_encoder(num_class=11)
+    # tea_classifier: nn.Module = resnet1d.resnet50_decoder(num_class=11)
+    # weight_path: str = "./weights/resnet50-baseline.pth"
+    # tea_encoder.load_state_dict(torch.load(weight_path, map_location=torch.device(device)))
+    # tea_classifier.load_state_dict(torch.load(weight_path, map_location=torch.device(device)))
+    # optimizer: optim.Optimizer = optim.Adam(params=stu_encoder.parameters(), lr=1e-3)
+    # train.train_and_evaluate_sim_kd_encoder(stu_encoder, tea_encoder, tea_classifier, optimizer,
+    #                                         train_dataloader, valid_dataloader, 50, device,
+    #                                         "res18-res50-simKd")
+    #
+    # stu_encoder: nn.Module = resnet1d.resnet18_encoder(num_class=11)
+    # tea_encoder: nn.Module = resnet1d.resnet101_encoder(num_class=11)
+    # tea_classifier: nn.Module = resnet1d.resnet101_decoder(num_class=11)
+    # weight_path: str = "./weights/resnet101-baseline.pth"
+    # tea_encoder.load_state_dict(torch.load(weight_path, map_location=torch.device(device)))
+    # tea_classifier.load_state_dict(torch.load(weight_path, map_location=torch.device(device)))
+    # optimizer: optim.Optimizer = optim.Adam(params=stu_encoder.parameters(), lr=1e-3)
+    # train.train_and_evaluate_sim_kd_encoder(stu_encoder, tea_encoder, tea_classifier, optimizer,
+    #                                         train_dataloader, valid_dataloader, 50, device,
+    #                                         "res18-res101-simKd")
+    #
+    # stu_encoder: nn.Module = resnet1d.resnet18_encoder(num_class=11)
+    # tea_encoder: nn.Module = resnet1d.resnet152_encoder(num_class=11)
+    # tea_classifier: nn.Module = resnet1d.resnet152_decoder(num_class=11)
+    # weight_path: str = "./weights/resnet152-baseline.pth"
+    # tea_encoder.load_state_dict(torch.load(weight_path, map_location=torch.device(device)))
+    # tea_classifier.load_state_dict(torch.load(weight_path, map_location=torch.device(device)))
+    # optimizer: optim.Optimizer = optim.Adam(params=stu_encoder.parameters(), lr=1e-3)
+    # train.train_and_evaluate_sim_kd_encoder(stu_encoder, tea_encoder, tea_classifier, optimizer,
+    #                                         train_dataloader, valid_dataloader, 50, device,
+    #                                         "res18-res152-simKd")
 
-    stu_encoder: nn.Module = resnet1d.resnet18_encoder(num_class=11)
-    tea_encoder: nn.Module = resnet1d.resnet101_encoder(num_class=11)
-    tea_classifier: nn.Module = resnet1d.resnet101_decoder(num_class=11)
-    weight_path: str = "./weights/resnet101-baseline.pth"
-    tea_encoder.load_state_dict(torch.load(weight_path, map_location=torch.device(device)))
-    tea_classifier.load_state_dict(torch.load(weight_path, map_location=torch.device(device)))
-    optimizer: optim.Optimizer = optim.Adam(params=stu_encoder.parameters(), lr=1e-3)
-    train.train_and_evaluate_sim_kd_encoder(stu_encoder, tea_encoder, tea_classifier, optimizer,
-                                            train_dataloader, valid_dataloader, 50, device,
-                                            "res18-res101-simKd")
+    # FITS
+    loss_fn = nn.CrossEntropyLoss()
 
-    stu_encoder: nn.Module = resnet1d.resnet18_encoder(num_class=11)
-    tea_encoder: nn.Module = resnet1d.resnet152_encoder(num_class=11)
-    tea_classifier: nn.Module = resnet1d.resnet152_decoder(num_class=11)
-    weight_path: str = "./weights/resnet152-baseline.pth"
-    tea_encoder.load_state_dict(torch.load(weight_path, map_location=torch.device(device)))
-    tea_classifier.load_state_dict(torch.load(weight_path, map_location=torch.device(device)))
-    optimizer: optim.Optimizer = optim.Adam(params=stu_encoder.parameters(), lr=1e-3)
-    train.train_and_evaluate_sim_kd_encoder(stu_encoder, tea_encoder, tea_classifier, optimizer,
-                                            train_dataloader, valid_dataloader, 50, device,
-                                            "res18-res152-simKd")
+    # initial dataset
+    rml2016a_dataset = rml2016a.RML2016aDataset()
+    lengths = [int(0.6 * len(rml2016a_dataset)), int(0.4 * len(rml2016a_dataset))]
+    train_subset, valid_subset = torch.utils.data.random_split(rml2016a_dataset, lengths)
+    train_dataloader = DataLoader(dataset=train_subset, batch_size=512, shuffle=True)
+    valid_dataloader = DataLoader(dataset=valid_subset, batch_size=512, shuffle=False)
+
+    fitsWithCNN = fits.FitsWithCNN2(128, 0, False, 2, 60)
+    optimizer: optim.Optimizer = optim.Adam(params=fitsWithCNN.parameters(), lr=1e-3, weight_decay=0.005)
+
+    train.train_and_evaluate(
+        fitsWithCNN, train_dataloader, valid_dataloader,
+        optimizer, loss_fn, device, 50, "fits-with-cnn-baseline")
