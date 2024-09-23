@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
-
+from models import resnet1d
 
 class Fits(nn.Module):
 
@@ -77,12 +77,12 @@ class Fits(nn.Module):
 
         return xy, low_xy * torch.sqrt(x_var)
 
-class FitsWithCNN2(nn.Module):
+class FitsWithResnet(nn.Module):
 
     # FITS: Frequency Interpolation Time Series Forecasting
 
     def __init__(self, seq_len, pred_len, individual, enc_in, cut_freq, num_classes = 11):
-        super(FitsWithCNN2, self).__init__()
+        super(FitsWithResnet, self).__init__()
         self.seq_len = seq_len
         self.pred_len = pred_len
         self.individual = individual
@@ -106,32 +106,7 @@ class FitsWithCNN2(nn.Module):
         # #self.Dlinear=DLinear.Model(configs)
         # configs.pred_len=self.pred_len
 
-        self.conv1 = nn.Sequential(nn.Conv2d(1, 256, kernel_size=(1, 7), stride=1, padding=(0, 3), bias=True),
-                                   #                                  nn.ReLU(),
-                                   nn.MaxPool2d(kernel_size=(1, 2)),
-                                   # nn.Dropout(0.2)
-                                   )
-
-        self.conv2 = nn.Sequential(nn.Conv2d(256, 128, kernel_size=(1, 7), stride=1, padding=(0, 3), bias=True),
-                                   #                                    nn.ReLU(),
-                                   nn.MaxPool2d(kernel_size=(1, 2)),
-                                   # nn.Dropout(0.2)
-                                   )
-        self.conv3 = nn.Sequential(nn.Conv2d(128, 64, kernel_size=(1, 7), stride=1, padding=(0, 3), bias=True),
-                                   #                                    nn.ReLU(),
-                                   nn.MaxPool2d(kernel_size=(1, 2)),
-                                   # nn.Dropout(0.2)
-                                   )
-        self.conv4 = nn.Sequential(nn.Conv2d(64, 64, kernel_size=(1, 7), stride=1, padding=(0, 3), bias=True),
-                                   #                                    nn.ReLU(),
-                                   nn.MaxPool2d(kernel_size=(1, 2)),
-                                   # nn.Dropout(0.2)
-                                   )
-
-        self.fc1 = nn.Sequential(nn.Linear(in_features=1024, out_features=128),
-                                 nn.ReLU()
-                                 )
-        self.fc2 = nn.Linear(in_features=128, out_features=num_classes)
+        self.res1d = resnet1d.resnet2(num_class=11)
 
     def forward(self, x):
 
@@ -175,20 +150,13 @@ class FitsWithCNN2(nn.Module):
         xy = (low_xy) * torch.sqrt(x_var) + x_mean
         xy = xy.permute(0, 2, 1)
 
-        y = xy.unsqueeze(1)
-        y = self.conv1(y)
-        y = self.conv2(y)
-        y = self.conv3(y)
-        y = self.conv4(y)
-        y = y.view(y.size(0), -1)
-        y = self.fc1(y)
-        y = self.fc2(y)
+        y = self.res1d(xy)
 
         return y
 
 
 if __name__ == "__main__":
-    net = FitsWithCNN2(128, 0, False, 2, 60)
+    net = FitsWithResnet(128, 128, False, 2, 60)
 
     sgn = torch.randn((3, 2, 128))
     sgn = net(sgn)
