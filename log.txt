@@ -3,3 +3,406 @@ start training: resnet4-baseline
 start training: fits-with-cnn-baseline
 start training: fits-with-cnn-baseline
 start training: resnet-fits-baseline
+start training: resnet-fits-baseline
+start training: resnet-fits-baseline
+start training: fits-baseline
+start training: fits-baseline
+start training: fits-baseline
+start training: fits-baseline
+start training: fits-baseline
+start training: fits-baseline
+start training: fits-baseline
+start training: fits-baseline
+start training: fits-baseline
+start training: fits-baseline-64-64
+start training: fits-baseline-64-64
+start training: fits-baseline-64-64
+start training: resnet-fits-baseline
+start training: resnet-fits-baseline
+start training: resnet-fits-baseline
+- Eval metrics, acc:  0.4628,top-5: 0.8472 loss:  1.4394
+- Eval metrics, acc:  0.4778,top-5: 0.8488 loss:  1.3697
+- Eval metrics, acc:  0.4854,top-5: 0.8313 loss:  1.3649
+- Eval metrics, acc:  0.4754,top-5: 0.8457 loss:  1.3782
+- Eval metrics, acc:  0.5188,top-5: 0.8498 loss:  1.2955
+- Eval metrics, acc:  0.5381,top-5: 0.8543 loss:  1.2449
+- Eval metrics, acc:  0.5256,top-5: 0.8515 loss:  1.2829
+- Eval metrics, acc:  0.5376,top-5: 0.8523 loss:  1.2446
+start training: resnet-fits-baseline-64
+- Eval metrics, acc:  0.4388,top-5: 0.8381 loss:  1.4475
+- Eval metrics, acc:  0.4788,top-5: 0.8343 loss:  1.3735
+- Eval metrics, acc:  0.4673,top-5: 0.8380 loss:  1.4275
+- Eval metrics, acc:  0.5079,top-5: 0.8464 loss:  1.3119
+- Eval metrics, acc:  0.4984,top-5: 0.8372 loss:  1.3410
+- Eval metrics, acc:  0.5018,top-5: 0.8390 loss:  1.3428
+- Eval metrics, acc:  0.5097,top-5: 0.8422 loss:  1.3288
+- Eval metrics, acc:  0.5086,top-5: 0.8422 loss:  1.3164
+- Eval metrics, acc:  0.5086,top-5: 0.8454 loss:  1.3153
+start training: resnet-fits-baseline-32
+- Eval metrics, acc:  0.4098,top-5: 0.8158 loss:  1.5867
+- Eval metrics, acc:  0.4228,top-5: 0.8183 loss:  1.5409
+- Eval metrics, acc:  0.4241,top-5: 0.8245 loss:  1.5357
+- Eval metrics, acc:  0.4419,top-5: 0.8242 loss:  1.4995
+- Eval metrics, acc:  0.4454,top-5: 0.8219 loss:  1.4868
+- Eval metrics, acc:  0.4529,top-5: 0.8168 loss:  1.4974
+- Eval metrics, acc:  0.4518,top-5: 0.8265 loss:  1.4645
+- Eval metrics, acc:  0.4640,top-5: 0.8245 loss:  1.4523
+- Eval metrics, acc:  0.4579,top-5: 0.8254 loss:  1.4678
+- Eval metrics, acc:  0.4721,top-5: 0.8282 loss:  1.4261
+- Eval metrics, acc:  0.4776,top-5: 0.8297 loss:  1.4084
+- Eval metrics, acc:  0.4777,top-5: 0.8297 loss:  1.4159
+- Eval metrics, acc:  0.4773,top-5: 0.8283 loss:  1.4128
+- Eval metrics, acc:  0.4842,top-5: 0.8289 loss:  1.3933
+- Eval metrics, acc:  0.4815,top-5: 0.8268 loss:  1.3891
+- Eval metrics, acc:  0.4807,top-5: 0.8289 loss:  1.3887
+- Eval metrics, acc:  0.4757,top-5: 0.8237 loss:  1.4002
+start training: modern-tcn-baseline
+start training: modern-tcn-baseline [1,1]
+- Eval metrics, acc:  0.3007,top-5: 0.7451 loss:  1.9902
+- Eval metrics, acc:  0.3430,top-5: 0.7985 loss:  1.8202
+- Eval metrics, acc:  0.3494,top-5: 0.7978 loss:  1.8011
+- Eval metrics, acc:  0.3465,top-5: 0.8063 loss:  1.7833
+- Eval metrics, acc:  0.3685,top-5: 0.8149 loss:  1.7647
+- Eval metrics, acc:  0.3718,top-5: 0.8167 loss:  1.7522
+- Eval metrics, acc:  0.3615,top-5: 0.8066 loss:  1.7460
+- Eval metrics, acc:  0.3610,top-5: 0.8160 loss:  1.7411
+- Eval metrics, acc:  0.3770,top-5: 0.8180 loss:  1.7256
+- Eval metrics, acc:  0.3666,top-5: 0.8149 loss:  1.7305
+- Eval metrics, acc:  0.3829,top-5: 0.8183 loss:  1.7194
+- Eval metrics, acc:  0.3744,top-5: 0.8171 loss:  1.7204
+- Eval metrics, acc:  0.3876,top-5: 0.8164 loss:  1.7147
+- Eval metrics, acc:  0.3691,top-5: 0.8136 loss:  1.7250
+- Eval metrics, acc:  0.3612,top-5: 0.8133 loss:  1.7155
+- Eval metrics, acc:  0.3734,top-5: 0.8068 loss:  1.7131
+- Eval metrics, acc:  0.3857,top-5: 0.8175 loss:  1.7137
+- Eval metrics, acc:  0.3818,top-5: 0.8191 loss:  1.7147
+- Eval metrics, acc:  0.3628,top-5: 0.8105 loss:  1.7160
+- Eval metrics, acc:  0.3855,top-5: 0.8171 loss:  1.7182
+- Eval metrics, acc:  0.3785,top-5: 0.8187 loss:  1.7084
+- Eval metrics, acc:  0.3730,top-5: 0.8150 loss:  1.7267
+- Eval metrics, acc:  0.3792,top-5: 0.8130 loss:  1.7178
+- Eval metrics, acc:  0.3755,top-5: 0.8167 loss:  1.7141
+- Eval metrics, acc:  0.3854,top-5: 0.8164 loss:  1.7253
+- Eval metrics, acc:  0.3865,top-5: 0.8185 loss:  1.7188
+- Eval metrics, acc:  0.3691,top-5: 0.8134 loss:  1.7391
+- Eval metrics, acc:  0.3706,top-5: 0.8105 loss:  1.7533
+- Eval metrics, acc:  0.3833,top-5: 0.8169 loss:  1.7060
+- Eval metrics, acc:  0.3797,top-5: 0.8172 loss:  1.7080
+- Eval metrics, acc:  0.3666,top-5: 0.8002 loss:  1.7240
+- Eval metrics, acc:  0.3648,top-5: 0.7996 loss:  1.7560
+- Eval metrics, acc:  0.3617,top-5: 0.8048 loss:  1.7404
+- Eval metrics, acc:  0.3590,top-5: 0.8133 loss:  1.7376
+- Eval metrics, acc:  0.3872,top-5: 0.8192 loss:  1.7006
+- Eval metrics, acc:  0.3750,top-5: 0.8177 loss:  1.7297
+- Eval metrics, acc:  0.3574,top-5: 0.7846 loss:  1.7897
+- Eval metrics, acc:  0.3714,top-5: 0.8194 loss:  1.7067
+- Eval metrics, acc:  0.3771,top-5: 0.8156 loss:  1.7111
+- Eval metrics, acc:  0.3632,top-5: 0.7950 loss:  1.7351
+- Eval metrics, acc:  0.3176,top-5: 0.7916 loss:  1.7969
+- Eval metrics, acc:  0.3779,top-5: 0.8138 loss:  1.7128
+- Eval metrics, acc:  0.3814,top-5: 0.8145 loss:  1.7075
+- Eval metrics, acc:  0.3825,top-5: 0.8102 loss:  1.7145
+- Eval metrics, acc:  0.3535,top-5: 0.8006 loss:  1.7764
+- Eval metrics, acc:  0.3683,top-5: 0.8151 loss:  1.7331
+- Eval metrics, acc:  0.3878,top-5: 0.8213 loss:  1.7086
+- Eval metrics, acc:  0.3478,top-5: 0.7853 loss:  1.7894
+- Eval metrics, acc:  0.3683,top-5: 0.8080 loss:  1.7451
+- Eval metrics, acc:  0.3455,top-5: 0.7950 loss:  1.7584
+start training: modern-tcn-baseline [2,2]
+- Eval metrics, acc:  0.2445,top-5: 0.6885 loss:  2.2337
+- Eval metrics, acc:  0.3381,top-5: 0.7842 loss:  1.8355
+- Eval metrics, acc:  0.3548,top-5: 0.8058 loss:  1.8056
+- Eval metrics, acc:  0.3550,top-5: 0.8068 loss:  1.7937
+- Eval metrics, acc:  0.3615,top-5: 0.7953 loss:  1.7718
+- Eval metrics, acc:  0.3500,top-5: 0.8116 loss:  1.7548
+- Eval metrics, acc:  0.3733,top-5: 0.8149 loss:  1.7367
+- Eval metrics, acc:  0.3723,top-5: 0.8147 loss:  1.7330
+- Eval metrics, acc:  0.3867,top-5: 0.8180 loss:  1.7105
+- Eval metrics, acc:  0.3834,top-5: 0.8212 loss:  1.7056
+- Eval metrics, acc:  0.3798,top-5: 0.8217 loss:  1.6952
+- Eval metrics, acc:  0.3882,top-5: 0.8191 loss:  1.6944
+- Eval metrics, acc:  0.3923,top-5: 0.8251 loss:  1.6862
+- Eval metrics, acc:  0.3925,top-5: 0.8262 loss:  1.6747
+- Eval metrics, acc:  0.3954,top-5: 0.8229 loss:  1.6748
+- Eval metrics, acc:  0.3955,top-5: 0.8210 loss:  1.6840
+- Eval metrics, acc:  0.4012,top-5: 0.8275 loss:  1.6585
+- Eval metrics, acc:  0.3923,top-5: 0.8237 loss:  1.6623
+- Eval metrics, acc:  0.4009,top-5: 0.8265 loss:  1.6498
+- Eval metrics, acc:  0.4092,top-5: 0.8238 loss:  1.6548
+- Eval metrics, acc:  0.3965,top-5: 0.8267 loss:  1.6470
+- Eval metrics, acc:  0.3957,top-5: 0.8230 loss:  1.6523
+- Eval metrics, acc:  0.3954,top-5: 0.8280 loss:  1.6389
+- Eval metrics, acc:  0.3848,top-5: 0.8164 loss:  1.6684
+- Eval metrics, acc:  0.3967,top-5: 0.8235 loss:  1.6537
+- Eval metrics, acc:  0.3839,top-5: 0.8188 loss:  1.6724
+- Eval metrics, acc:  0.3962,top-5: 0.8208 loss:  1.6526
+- Eval metrics, acc:  0.4040,top-5: 0.8213 loss:  1.6558
+- Eval metrics, acc:  0.4014,top-5: 0.8239 loss:  1.6329
+- Eval metrics, acc:  0.4177,top-5: 0.8262 loss:  1.6238
+- Eval metrics, acc:  0.3797,top-5: 0.8159 loss:  1.6844
+- Eval metrics, acc:  0.4022,top-5: 0.8290 loss:  1.6245
+- Eval metrics, acc:  0.3745,top-5: 0.8158 loss:  1.6953
+- Eval metrics, acc:  0.3882,top-5: 0.8221 loss:  1.6514
+- Eval metrics, acc:  0.3544,top-5: 0.8125 loss:  1.7125
+- Eval metrics, acc:  0.4160,top-5: 0.8248 loss:  1.6322
+- Eval metrics, acc:  0.4048,top-5: 0.8267 loss:  1.6315
+- Eval metrics, acc:  0.3914,top-5: 0.8222 loss:  1.6419
+- Eval metrics, acc:  0.4192,top-5: 0.8272 loss:  1.6188
+- Eval metrics, acc:  0.4023,top-5: 0.8274 loss:  1.6244
+- Eval metrics, acc:  0.3984,top-5: 0.8284 loss:  1.6420
+- Eval metrics, acc:  0.4110,top-5: 0.8222 loss:  1.6418
+- Eval metrics, acc:  0.3851,top-5: 0.8264 loss:  1.6489
+- Eval metrics, acc:  0.4220,top-5: 0.8293 loss:  1.6216
+- Eval metrics, acc:  0.4132,top-5: 0.8292 loss:  1.6161
+- Eval metrics, acc:  0.3692,top-5: 0.8146 loss:  1.6970
+- Eval metrics, acc:  0.3745,top-5: 0.8226 loss:  1.6539
+- Eval metrics, acc:  0.3821,top-5: 0.8143 loss:  1.6981
+- Eval metrics, acc:  0.3754,top-5: 0.8121 loss:  1.6714
+- Eval metrics, acc:  0.4096,top-5: 0.8232 loss:  1.6383
+start training: modern-tcn-baseline [4, 4]
+- Eval metrics, acc:  0.2615,top-5: 0.7291 loss:  2.0067
+- Eval metrics, acc:  0.3325,top-5: 0.7928 loss:  1.8316
+- Eval metrics, acc:  0.3564,top-5: 0.8141 loss:  1.7758
+- Eval metrics, acc:  0.3786,top-5: 0.8142 loss:  1.7537
+- Eval metrics, acc:  0.3859,top-5: 0.8189 loss:  1.7400
+- Eval metrics, acc:  0.3868,top-5: 0.8194 loss:  1.7167
+- Eval metrics, acc:  0.3933,top-5: 0.8244 loss:  1.7041
+- Eval metrics, acc:  0.4029,top-5: 0.8262 loss:  1.6798
+- Eval metrics, acc:  0.3898,top-5: 0.8206 loss:  1.6800
+- Eval metrics, acc:  0.3925,top-5: 0.8218 loss:  1.6752
+- Eval metrics, acc:  0.3960,top-5: 0.8237 loss:  1.6733
+- Eval metrics, acc:  0.3932,top-5: 0.8273 loss:  1.6679
+- Eval metrics, acc:  0.3978,top-5: 0.8217 loss:  1.6709
+- Eval metrics, acc:  0.4028,top-5: 0.8255 loss:  1.6554
+- Eval metrics, acc:  0.4044,top-5: 0.8227 loss:  1.6585
+- Eval metrics, acc:  0.3891,top-5: 0.8224 loss:  1.6685
+- Eval metrics, acc:  0.3865,top-5: 0.8229 loss:  1.6666
+- Eval metrics, acc:  0.4074,top-5: 0.8273 loss:  1.6402
+- Eval metrics, acc:  0.4105,top-5: 0.8293 loss:  1.6350
+- Eval metrics, acc:  0.4031,top-5: 0.8270 loss:  1.6530
+- Eval metrics, acc:  0.4033,top-5: 0.8271 loss:  1.6395
+- Eval metrics, acc:  0.4095,top-5: 0.8257 loss:  1.6392
+- Eval metrics, acc:  0.3897,top-5: 0.8279 loss:  1.6557
+- Eval metrics, acc:  0.3858,top-5: 0.8234 loss:  1.6636
+- Eval metrics, acc:  0.4116,top-5: 0.8277 loss:  1.6291
+- Eval metrics, acc:  0.4070,top-5: 0.8303 loss:  1.6341
+- Eval metrics, acc:  0.3960,top-5: 0.8260 loss:  1.6591
+- Eval metrics, acc:  0.4028,top-5: 0.8286 loss:  1.6354
+- Eval metrics, acc:  0.4015,top-5: 0.8264 loss:  1.6489
+- Eval metrics, acc:  0.4020,top-5: 0.8248 loss:  1.6417
+- Eval metrics, acc:  0.3858,top-5: 0.8259 loss:  1.6474
+- Eval metrics, acc:  0.3850,top-5: 0.8233 loss:  1.6618
+- Eval metrics, acc:  0.3902,top-5: 0.8194 loss:  1.6734
+- Eval metrics, acc:  0.3918,top-5: 0.8172 loss:  1.6683
+- Eval metrics, acc:  0.4023,top-5: 0.8212 loss:  1.6378
+- Eval metrics, acc:  0.3674,top-5: 0.8152 loss:  1.7076
+- Eval metrics, acc:  0.4003,top-5: 0.8263 loss:  1.6603
+- Eval metrics, acc:  0.4029,top-5: 0.8277 loss:  1.6405
+- Eval metrics, acc:  0.3910,top-5: 0.8217 loss:  1.6610
+- Eval metrics, acc:  0.3788,top-5: 0.8225 loss:  1.6849
+- Eval metrics, acc:  0.3574,top-5: 0.8071 loss:  1.7811
+- Eval metrics, acc:  0.4034,top-5: 0.8226 loss:  1.6582
+- Eval metrics, acc:  0.4083,top-5: 0.8252 loss:  1.6338
+- Eval metrics, acc:  0.3509,top-5: 0.8122 loss:  1.7187
+- Eval metrics, acc:  0.3831,top-5: 0.8091 loss:  1.7464
+- Eval metrics, acc:  0.4111,top-5: 0.8263 loss:  1.6299
+- Eval metrics, acc:  0.3882,top-5: 0.8251 loss:  1.6540
+- Eval metrics, acc:  0.3870,top-5: 0.8208 loss:  1.6580
+- Eval metrics, acc:  0.4077,top-5: 0.8273 loss:  1.6189
+- Eval metrics, acc:  0.4057,top-5: 0.8297 loss:  1.6302
+start training: modern-tcn-baseline
+start training: modern-tcn-baseline
+start training: modern-tcn-baseline
+start training: modern-tcn-baseline
+start training: modern-tcn-baseline
+start training: modern-tcn-baseline
+start training: modern-tcn-baseline
+start training: modern-tcn-baseline
+start training: modern-tcn-baseline
+start training: modern-tcn-baseline
+start training: modern-tcn-baseline
+- Eval metrics, acc:  0.2487,top-5: 0.7185 loss:  2.0882
+- Eval metrics, acc:  0.3510,top-5: 0.8056 loss:  1.7795
+- Eval metrics, acc:  0.3497,top-5: 0.8129 loss:  1.7661
+- Eval metrics, acc:  0.3630,top-5: 0.8152 loss:  1.7534
+- Eval metrics, acc:  0.3724,top-5: 0.8115 loss:  1.7343
+- Eval metrics, acc:  0.3739,top-5: 0.8156 loss:  1.7278
+- Eval metrics, acc:  0.3786,top-5: 0.8266 loss:  1.7097
+- Eval metrics, acc:  0.3822,top-5: 0.8223 loss:  1.6976
+- Eval metrics, acc:  0.3795,top-5: 0.8246 loss:  1.6882
+- Eval metrics, acc:  0.3778,top-5: 0.8232 loss:  1.6900
+- Eval metrics, acc:  0.3939,top-5: 0.8289 loss:  1.6881
+- Eval metrics, acc:  0.3917,top-5: 0.8202 loss:  1.6823
+- Eval metrics, acc:  0.3941,top-5: 0.8316 loss:  1.6719
+- Eval metrics, acc:  0.3936,top-5: 0.8312 loss:  1.6635
+- Eval metrics, acc:  0.3901,top-5: 0.8276 loss:  1.6734
+- Eval metrics, acc:  0.3986,top-5: 0.8305 loss:  1.6604
+- Eval metrics, acc:  0.3975,top-5: 0.8240 loss:  1.6641
+- Eval metrics, acc:  0.3783,top-5: 0.8266 loss:  1.6711
+- Eval metrics, acc:  0.3910,top-5: 0.8273 loss:  1.6657
+- Eval metrics, acc:  0.4009,top-5: 0.8285 loss:  1.6618
+- Eval metrics, acc:  0.3944,top-5: 0.8314 loss:  1.6629
+- Eval metrics, acc:  0.3943,top-5: 0.8310 loss:  1.6596
+- Eval metrics, acc:  0.3925,top-5: 0.8289 loss:  1.6574
+- Eval metrics, acc:  0.3910,top-5: 0.8314 loss:  1.6593
+- Eval metrics, acc:  0.3949,top-5: 0.8289 loss:  1.6607
+- Eval metrics, acc:  0.3993,top-5: 0.8308 loss:  1.6625
+- Eval metrics, acc:  0.3958,top-5: 0.8286 loss:  1.6575
+- Eval metrics, acc:  0.3881,top-5: 0.8272 loss:  1.6604
+- Eval metrics, acc:  0.4019,top-5: 0.8302 loss:  1.6564
+- Eval metrics, acc:  0.4045,top-5: 0.8301 loss:  1.6542
+- Eval metrics, acc:  0.3985,top-5: 0.8284 loss:  1.6612
+- Eval metrics, acc:  0.3966,top-5: 0.8298 loss:  1.6564
+- Eval metrics, acc:  0.3968,top-5: 0.8283 loss:  1.6638
+- Eval metrics, acc:  0.3941,top-5: 0.8259 loss:  1.6575
+- Eval metrics, acc:  0.3983,top-5: 0.8272 loss:  1.6536
+- Eval metrics, acc:  0.3916,top-5: 0.8182 loss:  1.6680
+- Eval metrics, acc:  0.4003,top-5: 0.8326 loss:  1.6503
+- Eval metrics, acc:  0.3971,top-5: 0.8312 loss:  1.6537
+- Eval metrics, acc:  0.3914,top-5: 0.8284 loss:  1.6763
+- Eval metrics, acc:  0.3998,top-5: 0.8311 loss:  1.6582
+- Eval metrics, acc:  0.4042,top-5: 0.8309 loss:  1.6538
+- Eval metrics, acc:  0.4004,top-5: 0.8285 loss:  1.6487
+- Eval metrics, acc:  0.3667,top-5: 0.8171 loss:  1.7102
+- Eval metrics, acc:  0.4012,top-5: 0.8316 loss:  1.6503
+- Eval metrics, acc:  0.4015,top-5: 0.8299 loss:  1.6595
+- Eval metrics, acc:  0.3570,top-5: 0.8139 loss:  1.7149
+- Eval metrics, acc:  0.3220,top-5: 0.7960 loss:  1.8126
+- Eval metrics, acc:  0.3932,top-5: 0.8245 loss:  1.6530
+- Eval metrics, acc:  0.3988,top-5: 0.8302 loss:  1.6511
+- Eval metrics, acc:  0.3796,top-5: 0.8247 loss:  1.6808
+start training: modern-tcn-baseline
+- Eval metrics, acc:  0.2945,top-5: 0.7703 loss:  1.8749
+- Eval metrics, acc:  0.3429,top-5: 0.8036 loss:  1.7918
+- Eval metrics, acc:  0.3550,top-5: 0.8141 loss:  1.7661
+- Eval metrics, acc:  0.3563,top-5: 0.8192 loss:  1.7524
+- Eval metrics, acc:  0.3673,top-5: 0.8173 loss:  1.7396
+- Eval metrics, acc:  0.3624,top-5: 0.8163 loss:  1.7312
+- Eval metrics, acc:  0.3709,top-5: 0.8200 loss:  1.7173
+- Eval metrics, acc:  0.3819,top-5: 0.8215 loss:  1.7000
+- Eval metrics, acc:  0.3863,top-5: 0.8243 loss:  1.6876
+- Eval metrics, acc:  0.3904,top-5: 0.8253 loss:  1.6850
+- Eval metrics, acc:  0.3862,top-5: 0.8264 loss:  1.6825
+- Eval metrics, acc:  0.3870,top-5: 0.8276 loss:  1.6805
+- Eval metrics, acc:  0.3954,top-5: 0.8269 loss:  1.6765
+- Eval metrics, acc:  0.3893,top-5: 0.8266 loss:  1.6785
+- Eval metrics, acc:  0.3943,top-5: 0.8285 loss:  1.6755
+- Eval metrics, acc:  0.3969,top-5: 0.8288 loss:  1.6708
+- Eval metrics, acc:  0.3862,top-5: 0.8298 loss:  1.6663
+- Eval metrics, acc:  0.3997,top-5: 0.8281 loss:  1.6735
+- Eval metrics, acc:  0.3931,top-5: 0.8208 loss:  1.6671
+- Eval metrics, acc:  0.3957,top-5: 0.8285 loss:  1.6590
+- Eval metrics, acc:  0.3932,top-5: 0.8309 loss:  1.6623
+- Eval metrics, acc:  0.4010,top-5: 0.8321 loss:  1.6585
+- Eval metrics, acc:  0.3957,top-5: 0.8278 loss:  1.6622
+- Eval metrics, acc:  0.3982,top-5: 0.8286 loss:  1.6596
+- Eval metrics, acc:  0.3991,top-5: 0.8287 loss:  1.6645
+- Eval metrics, acc:  0.4024,top-5: 0.8323 loss:  1.6554
+- Eval metrics, acc:  0.4014,top-5: 0.8286 loss:  1.6565
+- Eval metrics, acc:  0.4007,top-5: 0.8324 loss:  1.6596
+- Eval metrics, acc:  0.3783,top-5: 0.8232 loss:  1.6675
+- Eval metrics, acc:  0.3993,top-5: 0.8290 loss:  1.6598
+- Eval metrics, acc:  0.3990,top-5: 0.8290 loss:  1.6577
+- Eval metrics, acc:  0.4000,top-5: 0.8311 loss:  1.6558
+- Eval metrics, acc:  0.3975,top-5: 0.8297 loss:  1.6580
+- Eval metrics, acc:  0.3838,top-5: 0.8274 loss:  1.6610
+- Eval metrics, acc:  0.3966,top-5: 0.8270 loss:  1.6652
+- Eval metrics, acc:  0.3962,top-5: 0.8255 loss:  1.6610
+- Eval metrics, acc:  0.3936,top-5: 0.8254 loss:  1.6551
+- Eval metrics, acc:  0.3925,top-5: 0.8277 loss:  1.6680
+- Eval metrics, acc:  0.4007,top-5: 0.8303 loss:  1.6519
+- Eval metrics, acc:  0.3982,top-5: 0.8313 loss:  1.6665
+- Eval metrics, acc:  0.3913,top-5: 0.8315 loss:  1.6547
+- Eval metrics, acc:  0.4029,top-5: 0.8274 loss:  1.6559
+- Eval metrics, acc:  0.3667,top-5: 0.8179 loss:  1.7331
+- Eval metrics, acc:  0.3928,top-5: 0.8300 loss:  1.6577
+- Eval metrics, acc:  0.3946,top-5: 0.8267 loss:  1.6676
+- Eval metrics, acc:  0.3966,top-5: 0.8317 loss:  1.6484
+- Eval metrics, acc:  0.3926,top-5: 0.8302 loss:  1.6570
+- Eval metrics, acc:  0.3939,top-5: 0.8315 loss:  1.6664
+- Eval metrics, acc:  0.3935,top-5: 0.8271 loss:  1.6541
+- Eval metrics, acc:  0.3898,top-5: 0.8304 loss:  1.6737
+start training: gru-64-baseline
+- Eval metrics, acc:  0.1317,top-5: 0.5068 loss:  5.3426
+- Eval metrics, acc:  0.1937,top-5: 0.6344 loss:  4.5406
+- Eval metrics, acc:  0.0900,top-5: 0.4360 loss:  8.4237
+- Eval metrics, acc:  0.2406,top-5: 0.7894 loss:  2.4901
+- Eval metrics, acc:  0.1473,top-5: 0.6379 loss:  4.7765
+- Eval metrics, acc:  0.2445,top-5: 0.7657 loss:  2.8509
+- Eval metrics, acc:  0.0965,top-5: 0.5729 loss:  5.2832
+- Eval metrics, acc:  0.1047,top-5: 0.5460 loss:  6.4522
+- Eval metrics, acc:  0.1003,top-5: 0.5147 loss:  6.8993
+- Eval metrics, acc:  0.0961,top-5: 0.4408 loss:  7.4343
+- Eval metrics, acc:  0.1815,top-5: 0.6463 loss:  4.4419
+- Eval metrics, acc:  0.1104,top-5: 0.5373 loss:  5.9116
+- Eval metrics, acc:  0.3515,top-5: 0.7469 loss:  2.0133
+- Eval metrics, acc:  0.2628,top-5: 0.7646 loss:  2.4897
+- Eval metrics, acc:  0.1746,top-5: 0.6717 loss:  4.0084
+- Eval metrics, acc:  0.1904,top-5: 0.7039 loss:  3.3522
+- Eval metrics, acc:  0.1723,top-5: 0.6385 loss:  3.6797
+- Eval metrics, acc:  0.1427,top-5: 0.6394 loss:  4.6121
+- Eval metrics, acc:  0.1280,top-5: 0.5512 loss:  5.4640
+- Eval metrics, acc:  0.5320,top-5: 0.8501 loss:  1.3127
+- Eval metrics, acc:  0.2588,top-5: 0.7960 loss:  2.6424
+- Eval metrics, acc:  0.4211,top-5: 0.8346 loss:  1.6318
+- Eval metrics, acc:  0.1073,top-5: 0.5244 loss:  5.1820
+- Eval metrics, acc:  0.1028,top-5: 0.4818 loss:  5.6208
+- Eval metrics, acc:  0.2109,top-5: 0.6882 loss:  3.1337
+- Eval metrics, acc:  0.1766,top-5: 0.6665 loss:  3.7281
+- Eval metrics, acc:  0.4786,top-5: 0.8157 loss:  1.4508
+- Eval metrics, acc:  0.1454,top-5: 0.5742 loss:  4.4511
+- Eval metrics, acc:  0.1621,top-5: 0.5933 loss:  4.4634
+- Eval metrics, acc:  0.1832,top-5: 0.7052 loss:  2.8800
+- Eval metrics, acc:  0.4027,top-5: 0.8348 loss:  1.7105
+- Eval metrics, acc:  0.1781,top-5: 0.6471 loss:  3.7792
+- Eval metrics, acc:  0.1477,top-5: 0.6260 loss:  4.6067
+- Eval metrics, acc:  0.1165,top-5: 0.5165 loss:  5.2985
+- Eval metrics, acc:  0.1248,top-5: 0.6064 loss:  4.1407
+- Eval metrics, acc:  0.5760,top-5: 0.8587 loss:  1.1678
+- Eval metrics, acc:  0.3203,top-5: 0.8205 loss:  2.0655
+- Eval metrics, acc:  0.2383,top-5: 0.6940 loss:  2.8903
+- Eval metrics, acc:  0.1167,top-5: 0.5861 loss:  4.9035
+- Eval metrics, acc:  0.0947,top-5: 0.4941 loss:  5.8095
+- Eval metrics, acc:  0.1430,top-5: 0.5699 loss:  4.8794
+- Eval metrics, acc:  0.1198,top-5: 0.5562 loss:  4.5146
+- Eval metrics, acc:  0.1463,top-5: 0.6051 loss:  4.9858
+- Eval metrics, acc:  0.1217,top-5: 0.6039 loss:  6.7105
+- Eval metrics, acc:  0.1544,top-5: 0.5523 loss:  5.3990
+- Eval metrics, acc:  0.1228,top-5: 0.6227 loss:  4.0520
+- Eval metrics, acc:  0.1991,top-5: 0.7387 loss:  3.6473
+- Eval metrics, acc:  0.3288,top-5: 0.8237 loss:  2.0658
+- Eval metrics, acc:  0.1672,top-5: 0.6871 loss:  3.4371
+start training: cnn1-baseline
+- Eval metrics, acc:  0.0900,top-5: 0.4536 loss:  2.3979
+- Eval metrics, acc:  0.0897,top-5: 0.4513 loss:  2.3979
+- Eval metrics, acc:  0.0900,top-5: 0.4513 loss:  2.3979
+- Eval metrics, acc:  0.0900,top-5: 0.4514 loss:  2.3979
+- Eval metrics, acc:  0.0897,top-5: 0.4514 loss:  2.3979
+- Eval metrics, acc:  0.0897,top-5: 0.4513 loss:  2.3979
+- Eval metrics, acc:  0.0897,top-5: 0.4513 loss:  2.3979
+- Eval metrics, acc:  0.0897,top-5: 0.4513 loss:  2.3979
+- Eval metrics, acc:  0.0897,top-5: 0.4513 loss:  2.3979
+- Eval metrics, acc:  0.0900,top-5: 0.4514 loss:  2.3979
+- Eval metrics, acc:  0.0900,top-5: 0.4514 loss:  2.3979
+- Eval metrics, acc:  0.0900,top-5: 0.4512 loss:  2.3979
+- Eval metrics, acc:  0.0897,top-5: 0.4512 loss:  2.3979
+- Eval metrics, acc:  0.0897,top-5: 0.4518 loss:  2.3979
+- Eval metrics, acc:  0.0900,top-5: 0.4512 loss:  2.3979
+- Eval metrics, acc:  0.0900,top-5: 0.4512 loss:  2.3979
+- Eval metrics, acc:  0.0897,top-5: 0.4518 loss:  2.3979
+- Eval metrics, acc:  0.0900,top-5: 0.4514 loss:  2.3979
+- Eval metrics, acc:  0.0897,top-5: 0.4512 loss:  2.3979
+- Eval metrics, acc:  0.0897,top-5: 0.4513 loss:  2.3979
+start training: cnn1-baseline
+- Eval metrics, acc:  0.0914,top-5: 0.4520 loss:  2.3980
+- Eval metrics, acc:  0.0904,top-5: 0.4520 loss:  2.3979
+- Eval metrics, acc:  0.0897,top-5: 0.4514 loss:  2.3980
+start training: cnn1-baseline
+- Eval metrics, acc:  0.5035,top-5: 0.8573 loss:  1.2773
+- Eval metrics, acc:  0.4964,top-5: 0.8527 loss:  1.3403
+- Eval metrics, acc:  0.4940,top-5: 0.8547 loss:  1.3196
+- Eval metrics, acc:  0.3690,top-5: 0.8438 loss:  2.2285
+start training: cnn1-baseline
+- Eval metrics, acc:  0.0904,top-5: 0.4545 loss:  2.3980
+start training: cnn1-baseline
+- Eval metrics, acc:  0.1404,top-5: 0.6825 loss:  4.8511

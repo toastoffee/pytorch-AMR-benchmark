@@ -169,6 +169,30 @@ def train(model:        nn.Module,
         # train the model
         train_one_epoch(model, dataloader, optimizer, loss_fn, device)
 
+def train_mse(model:        nn.Module,
+          dataloader:   DataLoader,
+          optimizer:    optim.Optimizer,
+          loss_fn:      nn.Module,
+          device:       torch.device,
+          epochs:        int):
+
+    # device adaptation
+    model.to(device)
+    loss_fn.to(device)
+
+    # learning rate schedulers
+    # scheduler = MultiStepLR(optimizer, milestones=[60, 120, 160], gamma=0.2)
+    # scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, T_0=5, T_mult=2, eta_min=1e-8)
+    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=25, gamma=0.1, last_epoch=-1)
+
+    for epoch in range(epochs):
+
+        if epoch > 0:
+            scheduler.step()
+
+        # train the model
+        mse_train_one_epoch(model, dataloader, optimizer, loss_fn, device)
+
 
 # regular train with only one epoch
 def train_one_epoch(model:      nn.Module,
@@ -193,6 +217,7 @@ def train_one_epoch(model:      nn.Module,
 
             # forward
             preds: torch.Tensor = model(samples)
+            # loss = loss_fn(preds.float(), labels.float())
             loss = loss_fn(preds.float(), labels.long())
 
             # backward
@@ -213,6 +238,44 @@ def train_one_epoch(model:      nn.Module,
         print("- Train metrics, acc: {acc: .4f}, loss: {loss: .4f}".format(acc=acc_avg(), loss=loss_avg()))
         return acc_avg, loss_avg
 
+def mse_train_one_epoch(model:      nn.Module,
+                    dataloader: DataLoader,
+                    optimizer:  optim.Optimizer,
+                    loss_fn:    nn.Module,
+                    device:     torch.device):
+
+    # set the model to training mode
+    model.train()
+
+    # metrics
+    loss_avg = UpdatingAverage()
+    acc_avg = UpdatingAverage()
+
+    # start training and use tqdm as the progress bar
+    with tqdm(total=len(dataloader)) as t:
+        for i, (samples, labels, snr) in enumerate(dataloader):
+
+            # convert to torch variables
+            samples, labels = samples.to(device, dtype=torch.float32), labels.to(device)
+
+            # forward
+            preds: torch.Tensor = model(samples)
+            # loss = loss_fn(preds.float(), labels.float())
+            loss = loss_fn(preds.float(), labels.float())
+
+            # backward
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+
+            # update the average loss and accuracy
+            loss_avg.update(loss.data)
+
+            t.set_postfix(loss='{:05.8f}'.format(loss_avg()), lr='{:05.6f}'.format(optimizer.param_groups[0]['lr']))
+            t.update(1)
+
+        print("- Train metrics,, loss: {loss: .4f}".format(loss=loss_avg()))
+        return loss_avg
 
 # evaluate the mode
 def evaluate(model:        nn.Module,
